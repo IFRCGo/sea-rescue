@@ -1,0 +1,101 @@
+/* Template style for SIMS products */
+
+/* Red Headings */
+h1,h2 { color:#B71C1C; }
+
+/* H2 Headings */
+h2 { font-size: 1.5em; margin-top:0px;}
+
+/* H3 Headings */
+h3 { font-size: 1.25em; font-weight: bold; }
+
+h4 { text-align: center; }
+
+/* Red Hyperlinks */
+a       { color:#B71C1C; }
+a:hover { color:#B71C1C; }
+
+.container-fluid { margin-left: 1%; }
+
+/* Buttons */
+.btn-sm {
+  background: #e60000;
+  color: #ffffff;
+  border: #e60000;
+  font-weight: bold;
+  font-size: .9em;
+  padding: 6px;
+  border-radius: 10px;
+  max-width: 60%;
+}
+
+.page-header {
+	margin-top: 20px;
+}
+
+.btn-sm:focus,
+.btn-sm:hover { background-color: #e60000; color: ##B71C1C; }
+
+li { list-style-type: none; }
+
+.figure { float: right; font-weight: bold; color: #B71C1C; }
+
+.key-figure { font-weight: bold; color: #B71C1C; }
+
+.figure-padding { padding-left: 7px; font-weight: bold; color: #B71C1C; }
+
+.stats { font-weight: bold; color: #B71C1C; float: right; padding-top: 10px; }
+
+.img-center { margin:0 auto; border-radius:10px; }
+
+
+#stats1 { padding:0; }
+
+
+.icon { height: 40px; }
+
+body > .container-fluid {
+  padding: 60px 15px 0;
+}
+.container-fluid .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container-fluid {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.footerText {
+  font-size: .8em;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: auto;
+  background-color: #f5f5f5;
+}
+
+
+@media (max-width: 720px) { body { margin-bottom: 90px; } }
+
+/* Breakpoints */
+/*@media (min-width: 1091px){ .stats { float: none; padding-left: 7px; } }*/
+@media (min-width: 963px) and (max-width: 1090px) { .list-group-item { font-size: .85em; } }
+@media (min-width: 760px) and (max-width: 962px)  { .list-group-item { font-size: .85em; } }
+@media (min-width: 615px) and (max-width: 759px)  { .img-center { margin-top: 10px; margin-bottom: 10px;} .list-group-item { font-size: .85em; } }
+@media (min-width: 400px) and (max-width: 614px)  { .img-center { margin-top: 10px; margin-bottom: 10px;} .list-group-item { font-size: .85em; } }
+@media (max-width: 399px)                         { .list-group-item { font-size: .8em; } }
