@@ -1,5 +1,55 @@
 /* Template style for SIMS products */
 
+/*!
+ * IE10 viewport hack for Surface/desktop Windows 8 bug
+ * Copyright 2014-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+/*
+ * See the Getting Started docs for more information:
+ * http://getbootstrap.com/getting-started/#support-ie10-width
+ */
+@-ms-viewport     { width: device-width; }
+@-o-viewport      { width: device-width; }
+@viewport         { width: device-width; }
+
+/********************************************************
+ * CSS for social media icons in footer                 *
+ * Integrated with Bootstrap and multicoloured on hover *
+ ********************************************************/
+
+.social {
+    -webkit-transform: scale(0.8);
+
+    /* Browser Variations: */
+    -moz-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+}
+
+.social:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+
+#social { padding-top: 10px; }
+
+/* Red Initial */
+#social-youtube { color: #d34836; }
+#social-tw      { color: #d34836; }
+#social-medium  { color: #d34836; }
+#social-em      { color: #d34836; }
+
+/* Multicoloured Hover Variations */
+#social-youtube:hover { color: #d34836; }
+#social-tw:hover      { color: #4099FF; }
+#social-medium:hover  { color: #3B5998; }
+#social-em:hover      { color: #f39c12; }
+
 /* Red Headings */
 h1,h2 { color:#B71C1C; }
 

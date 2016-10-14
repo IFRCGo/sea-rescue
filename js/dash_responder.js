@@ -410,14 +410,12 @@ $.when(dataCall,mediaCall).then(function(dataArgs,mediaArgs){
     var data  = hxlProxyToJSON(dataArgs[0],true);
         media = hxlProxyToJSON(mediaArgs[0],true);
 
-    var dateFormat = d3.time.format("%d/%m/%Y");
-
     data.forEach(function(d){
-        d['Date'] = dateFormat.parse(d['date']);
+        d['Date'] = d3.timeParse("%d/%m/%Y")(d['Date']);
     });
 
     media.forEach(function(d){
-        d['Date'] = dateFormat.parse(d['DATE']);
+        d['Date'] = d3.timeParse("%d/%m/%Y")(d['DATE']);
     });
 
     function sortByDateAscending(a,b) {
