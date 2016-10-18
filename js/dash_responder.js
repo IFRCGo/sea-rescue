@@ -258,7 +258,67 @@ function generateStats(idA,idB,data){
 }
 
 function generateCharts(data) {
+    var colors = ['#F44336','#673AB7','#009688','#FFEB3B','#FF9800','#9E9E9E'];
+
+    //var demChart = dc.pieChart('#pie');
+    var boatChart = dc.pieChart('#pie2');
+    var rotationChart = dc.rowChart('#rotations');
+
+    var stats = crossfilter(data);
+
+    var dateDimension = stats.dimension(function(d){ return d['Date']; });
+    var boatDimension = stats.dimension(function(d){ return d['boat']; });
+    var rotationDimension = stats.dimension(function(d){ return d['rotation']; });
+
+    var dateGroup = dateDimension.group().reduceSum(function(d) {return d['sMen']+d['sWomen']+d['sChildren']+d['dMen']+d['dWomen']+d['dChildren']; });
+    var rotationGroup = rotationDimension.group().reduceSum(function(d) {return d['sMen']+d['sWomen']+d['sChildren']+d['dMen']+d['dWomen']+d['dChildren']; });
+    var boatGroup = boatDimension.group().reduceSum(function(d) {return d['sMen']+d['sWomen']+d['sChildren']+d['dMen']+d['dWomen']+d['dChildren'];;});
+
+    var deathsMissingGroup = rotationDimension.group().reduceSum(function(d) {return d['dMen']+d['dWomen']+d['dChildren'];});
+    var disembarkGroup = rotationDimension.group().reduceSum(function(d) {return d['disTotal'];});
     
+    var menGroup = dateDimension.group().reduceSum(function(d) {return d['sMen'];});
+    var womGroup = dateDimension.group().reduceSum(function(d) {return d['sWomen'];});
+    var childGroup = dateDimension.group().reduceSum(function(d) {return d['sChildren'];});
+    
+    var caredFor = rotationDimension.group().reduceSum(function(d){ return d['sMen']+d['sWomen']+d['sChildren']+d['dMen']+d['dWomen']+d['dChildren']; });
+
+    
+
+    var caredForAll = stats.groupAll().reduceSum(function(d){ return d['sMen']+d['sWomen']+d['sChildren']+d['dMen']+d['dWomen']+d['dChildren']; });
+    var menGroup = dateDimension.groupAll().reduceSum(function(d) {return d['sMen'];});
+    var womGroup = dateDimension.groupAll().reduceSum(function(d) {return d['sWomen'];});
+    var childGroup = dateDimension.groupAll().reduceSum(function(d) {return d['sChildren'];});
+
+
+    boatChart.width($('#pie').width()).height(200)
+        .dimension(caredFor)
+        .group(boatGroup);
+
+
+    rotationChart.width($('#rotations').width()).height(300)
+        .dimension(caredFor)
+        .group(rotationGroup)
+        .elasticX(true);
+
+    function rangesEqual(range1, range2) {
+        if (!range1 && !range2) {
+            return true;
+        }
+        else if (!range1 || !range2) {
+            return false;
+        }
+        else if (range1.length === 0 && range2.length === 0) {
+            return true;
+        }
+        else if (range1[0].valueOf() === range2[0].valueOf() &&
+            range1[1].valueOf() === range2[1].valueOf()) {
+            return true;
+        }
+        return false;
+    }
+
+    dc.renderAll();
 
 }
 
@@ -416,12 +476,32 @@ $.when(dataCall,mediaCall).then(function(dataArgs,mediaArgs){
     var data  = hxlProxyToJSON(dataArgs[0],true);
         media = hxlProxyToJSON(mediaArgs[0],true);
 
+    var dateFormat = d3.time.format("%d/%m/%Y");
+
     data.forEach(function(d){
-        d['Date'] = d3.timeParse("%d/%m/%Y")(d['Date']);
+        d['Date'] = dateFormat.parse(d['date']);
+        d['sMen'] = parseInt(d['sMen']);
+        if (isNaN(d['sMen'])) {d['sMen'] = 0; };
+        d['sWomen'] = parseInt(d['sWomen']);
+        if (isNaN(d['sWomen'])) {d['sWomen'] = 0; };
+        d['sChildren'] = parseInt(d['sChildren']);
+        if (isNaN(d['sChildren'])) {d['sChildren'] = 0; };
+        d['sTotal'] = parseInt(d['sTotal']);
+        if (isNaN(d['sTotal'])) {d['sTotal'] = 0; };
+        d['dMen'] = parseInt(d['dMen']);
+        if (isNaN(d['dMen'])) {d['dMen'] = 0; };
+        d['dWomen'] = parseInt(d['dWomen']);
+        if (isNaN(d['dWomen'])) {d['dWomen'] = 0; };
+        d['dChildren'] = parseInt(d['dChildren']);
+        if (isNaN(d['dChildren'])) {d['dChildren'] = 0; };
+        d['dTotal'] = parseInt(d['dTotal']);
+        if (isNaN(d['dTotal'])) {d['dTotal'] = 0; };
+        d['disTotal'] = parseInt(d['disTotal']);
+        if (isNaN(d['disTotal'])) {d['disTotal'] = 0; };
     });
 
     media.forEach(function(d){
-        d['Date'] = d3.timeParse("%d/%m/%Y")(d['DATE']);
+        d['Date'] = dateFormat.parse(d['DATE']);
     });
 
     function sortByDateAscending(a,b) {
@@ -437,4 +517,5 @@ $.when(dataCall,mediaCall).then(function(dataArgs,mediaArgs){
     console.log("Media: ", media);
     outputMedia(media);
     generateStats("#tot_stats","#ops_stats",data);
+    generateCharts(data);
 });
