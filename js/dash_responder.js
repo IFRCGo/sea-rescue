@@ -59,6 +59,7 @@ function generateStats(idA,idB,data){
         tWomen     = 0;
         tChild     = 0;
         tDead      = 0;
+        tMissing   = 0;
         tOps = data.length;
 
         // Responder variables
@@ -71,6 +72,7 @@ function generateStats(idA,idB,data){
         rWomen     = 0;
         rChild     = 0;
         rDead      = 0;
+        rMissing   = 0;
         rOps       = 0;
 
         // Phoenix variables
@@ -83,6 +85,7 @@ function generateStats(idA,idB,data){
         pWomen     = 0;
         pChild     = 0;
         pDead      = 0;
+        pMissing   = 0;
         pOps       = 0;
 
     // Define variables for operations counts
@@ -109,13 +112,15 @@ function generateStats(idA,idB,data){
     for(i = 0; i < tOps; i++) {
       // Responder Stats
       if (data[i]['boat'] == "Responder") {
-        numEmbark    = parseInt(data[i]['sTotal']);
-        numDisembark = parseInt(data[i]['disTotal']);
-        numDead   = parseInt(data[i]['dTotal']);
+        numEmbark    = parseInt(data[i].sTotal);
+        numDisembark = parseInt(data[i].disTotal);
+        numDead   = parseInt(data[i].dTotal);
+        numMissing = parseInt(data[i].missing);
 
         if (!isNaN(numEmbark)) {rEmbark += numEmbark;};
         if (!isNaN(numDisembark)) {rDisembark += numDisembark;};
         if (!isNaN(numDead))  {rDead  += numDead;};
+        if (!isNaN(numMissing))  {rMissing  += numMissing;};
 
         if (data[i]['opType'] == "Rescue") {
           rRescueOps += 1;
@@ -149,30 +154,32 @@ function generateStats(idA,idB,data){
         }
       }
 
-      if (data[i]['boat'] == "Phoenix") {
-        numEmbark    = parseInt(data[i]['sTotal']);
-        numDisembark = parseInt(data[i]['disTotal']);
-        numDead      = parseInt(data[i]['dTotal']);
+      if (data[i].boat == "Phoenix") {
+        numEmbark    = parseInt(data[i].sTotal);
+        numDisembark = parseInt(data[i].disTotal);
+        numDead      = parseInt(data[i].dTotal);
+        numMissing = parseInt(data[i].missing);
 
         if (!isNaN(numEmbark)) {pEmbark += numEmbark;};
         if (!isNaN(numDisembark)) {pDisembark += numDisembark;};
         if (!isNaN(numDead)) {pDead += numDead;};
+        if (!isNaN(numMissing))  {pMissing  += numMissing;};
 
-        if (data[i]['opType'] == "Rescue") {
+        if (data[i].opType == "Rescue") {
           pRescueOps += 1;
-          numRMen    = parseInt(data[i]['sMen']) + parseInt(data[i]['dMen']);
-          numRWomen  = parseInt(data[i]['sWomen']) + parseInt(data[i]['dWomen']);
-          numRChild  = parseInt(data[i]['sChildren']) + parseInt(data[i]['dChildren']);
+          numRMen    = parseInt(data[i].sMen) + parseInt(data[i].dMen);
+          numRWomen  = parseInt(data[i].sWomen) + parseInt(data[i].dWomen);
+          numRChild  = parseInt(data[i].sChildren) + parseInt(data[i].dChildren);
 
           if (!isNaN(numRMen))   {pMen   += numRMen;};
           if (!isNaN(numRWomen)) {pWomen += numRWomen;};
           if (!isNaN(numRChild)) {pChild += numRChild;};
 
-          pplRescuedp += parseInt(data[i]['sTotal']);
-        } else if (data[i]['opType'] == "Disembarkment") {
+          pplRescuedp += parseInt(data[i].sTotal);
+        } else if (data[i].opType == "Disembarkment") {
           pDisembarkOps += 1;
-          pplDisembarkp += parseInt(data[i]['disTotal']);
-        } else if (data[i]['opType'] == "Transfer In") {
+          pplDisembarkp += parseInt(data[i].disTotal);
+        } else if (data[i].opType == "Transfer In") {
           pTransInOps += 1;
 
           numTiMen    = parseInt(data[i]['sMen']) + parseInt(data[i]['dMen']);
@@ -200,11 +207,14 @@ function generateStats(idA,idB,data){
     tWomen     = rWomen + pWomen;
     tChild     = rChild + pChild;
     tDead      = rDead + pDead;
+    tMissing   = rMissing + pMissing;
 
     pplRescued   = pplRescuedr + pplRescuedp;
     pplTransIn   = pplTransInr + pplTransInp;
     pplTransOut  = pplTransOutr + pplTransOutp;
     pplDisembark = pplDisembarkr + pplDisembarkp;
+
+    console.log(rMissing, pMissing, tMissing)
 
     var diff = tEmbark - pplTransIn;
 
@@ -238,13 +248,13 @@ function generateStats(idA,idB,data){
     $("#both").html("");
 
     $("#responder").append("<h4 data-toggle='tooltip' data-placement='bottom' title='Includes all rescues, transfers in and dead bodies brought on board'>People Cared For: " + pplCaredForR + "</h4>" + "<p style='text-align:center'>Last Updated: " + data[0].date + "</p>" +
-                           "<canvas id='rChart' width=200 height=200></canvas><div class='row'><div class='col-sm-6'><img width='35' height='35' data-toggle='tooltip' data-placement='right' alt='Rescue Symbol' title='People Rescued' src='img/icons/rescue_red.svg'><span class='stats'>" + pplRescuedr + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Disembark Symbol' data-toggle='tooltip' data-placement='top' title='People Disembarked to Land' src='img/icons/disembark_red.svg'><span class='stats'>" + pplDisembarkr + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Transferred In Symbol' data-toggle='tooltip' data-placement='right' title='People Transferred to the Responder' src='img/icons/trans_in_red.svg'><span class='stats'>" + pplTransInr + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Transferred Out Symbol' data-toggle='tooltip' data-placement='top' title='People Transferred from the Responder' src='img/icons/trans_out_red.svg'><span class='stats'>" + pplTransOutr + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Deceased Symbol' data-toggle='tooltip' data-placement='right' title='Deceased or Missing People' src='img/icons/deceased_red.svg'><span class='stats'>" + rDead + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Operations Symbol' data-toggle='tooltip' data-placement='top' title='Number of Rescue Operations' src='img/icons/operations_red.svg'><span class='stats'>" + rRescueOps + "</span></div></div> <!-- stats row -->");
+                           "<canvas id='rChart' width=200 height=200></canvas><div class='row'><div class='col-sm-6'><img width='35' height='35' data-toggle='tooltip' data-placement='right' alt='Rescue Symbol' title='People Rescued' src='img/icons/rescue_red.svg'><span class='stats'>" + pplRescuedr + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Disembark Symbol' data-toggle='tooltip' data-placement='top' title='People Disembarked to Land' src='img/icons/disembark_red.svg'><span class='stats'>" + pplDisembarkr + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Transferred In Symbol' data-toggle='tooltip' data-placement='right' title='People Transferred to the Vessel' src='img/icons/trans_in_red.svg'><span class='stats'>" + pplTransInr + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Transferred Out Symbol' data-toggle='tooltip' data-placement='top' title='People Transferred from the Vessel' src='img/icons/trans_out_red.svg'><span class='stats'>" + pplTransOutr + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Deceased Symbol' data-toggle='tooltip' data-placement='right' title='Deceased or Missing People' src='img/icons/deceased_red.svg'><span class='stats'>" + (rDead + rMissing) + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Operations Symbol' data-toggle='tooltip' data-placement='top' title='Number of Rescue Operations' src='img/icons/operations_red.svg'><span class='stats'>" + rRescueOps + "</span></div></div> <!-- stats row -->");
 
     $("#phoenix").append("<h4 data-toggle='tooltip' data-placement='bottom' title='Includes all rescues, transfers in and dead bodies brought on board'>People Cared For: " + pplCaredForP + "</h4>" + "<p style='text-align:center'>Last Updated: " + data[0].date + "</p>" +
-                           "<canvas id='pChart' width=200 height=200></canvas><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Rescue Symbol' data-toggle='tooltip' data-placement='right' title='People Rescued' src='img/icons/rescue_red.svg'><span class='stats'>" + pplRescuedp + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Disembark Symbol' data-toggle='tooltip' data-placement='top' title='People Disembarked to Land' src='img/icons/disembark_red.svg'><span class='stats'>" + pplDisembarkp + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Transferred In Symbol' data-toggle='tooltip' data-placement='right' title='People Transferred to the Responder' src='img/icons/trans_in_red.svg'><span class='stats'>" + pplTransInp + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Transferred Out Symbol' data-toggle='tooltip' data-placement='top' title='People Transferred from the Responder' src='img/icons/trans_out_red.svg'><span class='stats'>" + pplTransOutp + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Deceased Symbol' data-toggle='tooltip' data-placement='right' title='Deceased or Missing People' src='img/icons/deceased_red.svg'><span class='stats'>" + pDead + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Operations Symbol' data-toggle='tooltip' data-placement='top' title='Number of Rescue Operations' src='img/icons/operations_red.svg'><span class='stats'>" + pRescueOps + "</span></div></div> <!-- stats row -->");
+                           "<canvas id='pChart' width=200 height=200></canvas><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Rescue Symbol' data-toggle='tooltip' data-placement='right' title='People Rescued' src='img/icons/rescue_red.svg'><span class='stats'>" + pplRescuedp + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Disembark Symbol' data-toggle='tooltip' data-placement='top' title='People Disembarked to Land' src='img/icons/disembark_red.svg'><span class='stats'>" + pplDisembarkp + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Transferred In Symbol' data-toggle='tooltip' data-placement='right' title='People Transferred to the Vessel' src='img/icons/trans_in_red.svg'><span class='stats'>" + pplTransInp + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Transferred Out Symbol' data-toggle='tooltip' data-placement='top' title='People Transferred from the Vessel' src='img/icons/trans_out_red.svg'><span class='stats'>" + pplTransOutp + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Deceased Symbol' data-toggle='tooltip' data-placement='right' title='Deceased or Missing People' src='img/icons/deceased_red.svg'><span class='stats'>" + (pDead + pMissing) + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Operations Symbol' data-toggle='tooltip' data-placement='top' title='Number of Rescue Operations' src='img/icons/operations_red.svg'><span class='stats'>" + pRescueOps + "</span></div></div> <!-- stats row -->");
 
     $("#both").append("<h4 data-toggle='tooltip' data-placement='bottom' title='Includes all rescues, transfers in and dead bodies brought on board'>People Cared For: " + pplCaredFor + "</h4>" + "<p style='text-align:center'>Last Updated: " + data[0].date + "</p>" +
-                           "<canvas id='tChart' width=200 height=200></canvas><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Rescue Symbol' data-toggle='tooltip' data-placement='right' title='People Rescued' src='img/icons/rescue_red.svg'><span class='stats'>" + pplRescued + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Disembark Symbol' data-toggle='tooltip' data-placement='top' title='People Disembarked to Land' src='img/icons/disembark_red.svg'><span class='stats'>" + pplDisembark + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Transferred In Symbol' data-toggle='tooltip' data-placement='right' title='People Transferred to the Responder' src='img/icons/trans_in_red.svg'><span class='stats'>" + pplTransIn + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Transferred Out Symbol' data-toggle='tooltip' data-placement='top' title='People Transferred from the Responder' src='img/icons/trans_out_red.svg'><span class='stats'>" + pplTransOut + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Deceased Symbol' data-toggle='tooltip' data-placement='right' title='Deceased or Missing People' src='img/icons/deceased_red.svg'><span class='stats'>" + tDead + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Operations Symbol' data-toggle='tooltip' data-placement='top' title='Number of Rescue Operations' src='img/icons/operations_red.svg'><span class='stats'>" + tRescueOps + "</span></div></div> <!-- stats row -->");
+                           "<canvas id='tChart' width=200 height=200></canvas><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Rescue Symbol' data-toggle='tooltip' data-placement='right' title='People Rescued' src='img/icons/rescue_red.svg'><span class='stats'>" + pplRescued + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Disembark Symbol' data-toggle='tooltip' data-placement='top' title='People Disembarked to Land' src='img/icons/disembark_red.svg'><span class='stats'>" + pplDisembark + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Transferred In Symbol' data-toggle='tooltip' data-placement='right' title='People Transferred to the Vessel' src='img/icons/trans_in_red.svg'><span class='stats'>" + pplTransIn + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Transferred Out Symbol' data-toggle='tooltip' data-placement='top' title='People Transferred from the Vessel' src='img/icons/trans_out_red.svg'><span class='stats'>" + pplTransOut + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Deceased Symbol' data-toggle='tooltip' data-placement='right' title='Deceased or Missing People' src='img/icons/deceased_red.svg'><span class='stats'>" + (tDead + tMissing) + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Operations Symbol' data-toggle='tooltip' data-placement='top' title='Number of Rescue Operations' src='img/icons/operations_red.svg'><span class='stats'>" + tRescueOps + "</span></div></div> <!-- stats row -->");
 
     
 
