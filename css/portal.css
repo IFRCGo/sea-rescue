@@ -50,6 +50,35 @@
 #social-medium:hover  { color: #3B5998; }
 #social-em:hover      { color: #f39c12; }
 
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: auto;
+  background-color: #f5f5f5;
+}
+
+.navbar-default .navbar-nav>li>a:hover,
+.dropdown-menu>li>a:focus,
+.dropdown-menu>li>a:hover,
+.navbar-default .navbar-nav>.active>a:focus,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-brand:hover {
+  color: #B71C1C;
+}
+
 /* Red Headings */
 h1,h2 { color:#B71C1C; }
 
@@ -84,7 +113,7 @@ body {
 }
 
 .page-header {
-	margin-top: 20px;
+	margin-top: 5px;
 }
 
 .btn-sm:focus,
@@ -109,7 +138,7 @@ li { list-style-type: none; }
 .icon { height: 40px; }
 
 body > .container-fluid {
-  padding: 60px 15px 0;
+  padding: 50px 15px 0;
 }
 .container-fluid .text-muted {
   margin: 20px 0;
@@ -124,23 +153,8 @@ body > .container-fluid {
   font-size: .8em;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: auto;
-  background-color: #f5f5f5;
+#powerbidashboard {
+  overflow:hidden;
 }
 
 
