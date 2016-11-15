@@ -23,7 +23,7 @@ $("#vesselSelection").on("change", function(e) {
                   $("#both").show();
                   break;   
     };
-  }); 
+  });
 
 function hxlProxyToJSON(input,headers){
   var output = [];
@@ -218,9 +218,10 @@ function generateStats(idA,idB,data){
 
     var diff = tEmbark - pplTransIn;
 
-    /*    console.log("Responder Ops: " + rRescueOps);
+        console.log("Responder Ops: " + rRescueOps);
         console.log("Phoenix Ops: " + pRescueOps);
         console.log("Phoenix Men: " + pMen);
+        console.log("Responder Men: " + rMen);
 
         console.log("Total Embarked: " + tEmbark);
         console.log("Total Disembarked: " + tDisembark);
@@ -233,7 +234,7 @@ function generateStats(idA,idB,data){
         console.log("Total Transferred In: " + pplTransIn);
         console.log("Total Transferred Out: " + pplTransOut);
         console.log("Total Disembarked: " + pplDisembark);
-    */
+    
 
     var pplCaredFor = pplRescued + pplTransIn + tDead;
         pplCaredForR = pplRescuedr + pplTransInr + rDead;

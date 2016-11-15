@@ -58,7 +58,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="https://ifrc-europe.github.io/migration-portal">IM Portal</a></li>
-            <li class="active"><a href="https://ifrc-europe.github.io/sea-rescue">Mediterranean SaR</a></li>
+            <li><a href="https://ifrc-europe.github.io/sea-rescue">Mediterranean SaR</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FedNet Links <span class="caret"></span></a>
                   <ul class="dropdown-menu">
@@ -93,108 +93,12 @@
         <div id="content">
             <div class="page-header">
                 <h1>Stop Indifference: Red Cross Launches Search and Rescue Operations</h1>
-                <a class="btn-sm" href="powerbi-dashboard.html">Explore Full Dashboard</a>
             </div>
 
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="row">
-                <h3>SELECT VESSEL</h3>
-                <div class="vessels">
-                  <select data-toggle="dropdown" data-mobile="true" class="page-scroll btn btn-danger" id="vesselSelection">
-                        <option selected value="responder">Responder</option>
-                        <option value="phoenix">Phoenix</option>
-                        <option value="both">Both Vessels</option>
-                    </select>
-                </div>
-
-                <div id="responder"></div>
-                <div id="phoenix"></div>
-                <div id="both"></div>
-                </div>
+            <div id="powerbidashboard" class="col-md-12">
+                <iframe width="100%" height="800px" src="https://app.powerbi.com/view?r=eyJrIjoiNDM0YWE0NjAtMjZjZS00ZTNlLTllNDAtMmMzOTVjNWQ5NGU1IiwidCI6ImEyYjUzYmU1LTczNGUtNGU2Yy1hYjBkLWQxODRmNjBmZDkxNyIsImMiOjh9" frameborder="0" allowFullScreen="true"></iframe>              
             </div>
-
-            <div class="col-md-6 col-sm-6 col-xs-6">
-              <div class="row">
-                    <h3>BACKGROUND INFORMATION</h3>
-                    <p><i>May require FedNet login</i></p>
-                    <div class="text-center">
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <a class="btn-sm img-center img-responsive" target="_blank" href="http://ifrc.us13.list-manage1.com/track/click?u=f384fe9dde60018f07b31b034&id=2668ca4c51&e=144a801949">Facts & Figures</a>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <a class="btn-sm img-center img-responsive" target="_blank" href="https://www.youtube.com/playlist?list=PLrI6tpZ6pQmRcjvhW_s9dnoaqIB-KbCvm">360 Tour of the Topaz Responder</a>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <a class="btn-sm img-center img-responsive" target="_blank" href="http://ifrc.us13.list-manage1.com/track/click?u=f384fe9dde60018f07b31b034&id=66f35d014c&e=144a801949">Questions &amp; Answers</a>
-                        </div>
-                    </div> <!-- text center div -->
-                </div> <!-- background info row -->
-
-              <div class="row">
-                <h3>MEDIA STORIES</h3>
-                  <div class="text-center">
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                      <img class="img-center img-responsive" height="75" alt="Topaz Responder Vessel" src="img/responder_new.jpg"/><br/>
-                      <div class="panel-group" role="tablist">
-                        <div class="panel panel-default">
-                          <div class="panel-heading" role="tab" id="videoHeading1">
-                            <h4 class="panel-title">
-                              <div class="collapsed" data-parent="#accordion" href="#videoCollapse1" aria-expanded="false" aria-controls="videoCollapse1">
-                                Videos
-                              </div> <!-- video heading -->
-                            </h4>
-                          </div> <!-- Heading 1-->
-                          <div id="videoCollapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="videoHeading1">
-                            <ul id="videoOutput" class="list-group"></ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <img class="img-center img-responsive" height="75" alt="Responder Team" src="img/topaz_team.jpg"/><br/>
-                        <div class="panel-group" role="tablist">
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="newsHeading1">
-                                    <h4 class="panel-title">
-                                        <div class="collapsed" data-parent="#accordion" href="#newsCollapse1" aria-expanded="false" aria-controls="newsCollapse1">
-                                            Recent News Stories
-                                        </div> <!-- stories heading -->
-                                    </h4>
-                                </div> <!-- Heading 1-->
-                                <div id="newsCollapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="newsHeading1">
-                                    <ul id="newsOutput" class="list-group"></ul>
-                                </div>
-                            </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                      <img class="img-center img-responsive" height="75" alt="Topaz Responder Vessel and Team" src="img/gallery.jpg"/><br/>
-                      <div class="panel-group" role="tablist">
-                        <div class="panel panel-default">
-                          <div class="panel-heading" role="tab" id="photoHeading1">
-                            <h4 class="panel-title">
-                              <div class="collapsed" data-parent="#accordion" href="#photoCollapse1" aria-expanded="false" aria-controls="photoCollapse1">
-                                Photos
-                              </div> <!-- photos heading -->
-                            </h4>
-                          </div> <!-- Heading 1-->
-                          <div id="photoCollapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="photoHeading1">
-                            <ul id="photoOutput" class="list-group"></ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div> <!-- Photo Column -->
-
-                  </div> <!-- text center row -->
-              </div> <!-- media row -->
-            </div>
-            
-            <div class="col-md-3 col-sm-3 col-xs-12 sidebar">
-                <a class="twitter-timeline" data-height="700" data-link-color="#B71C1C" href="https://twitter.com/thorirg">Tweets from the Responder</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-            </div>
-        </div> <!-- content -->
+		</div> <!-- content -->
     </main> <!-- main -->
 
     <footer class="footer">
@@ -218,9 +122,6 @@
     <!-- Javascript Libraries -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
-    <script src="js/dash_responder.js"></script>
 
 </body>
 </html>
